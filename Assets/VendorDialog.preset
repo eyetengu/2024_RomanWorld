@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!181963792 &2655988077585873504
+Preset:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: VendorDialog
+  m_TargetType:
+    m_NativeTypeID: 114
+    m_ManagedTypePPtr: {fileID: 11500000, guid: e7f728336dbb9b0448abf0251f7ba5cc,
+      type: 3}
+    m_ManagedTypeFallback: 
+  m_Properties:
+  - target: {fileID: 0}
+    propertyPath: m_Enabled
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorHideFlags
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorClassIdentifier
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _questManager
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _UIManager
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _completedQuestColor
+    value: 
+    objectReference: {fileID: 2100000, guid: 0dbd2455e8e050a4487a862afacb55aa, type: 2}
+  - target: {fileID: 0}
+    propertyPath: _questName
+    value: Quest One
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _rewardName
+    value: Blue Pearl
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _questObjectives.Array.size
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _questObjectives.Array.data[0]
+    value: Bread
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _rewardObject
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _inZone
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _questExplained
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _questAccepted
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _questComplete
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _finalDialogFinished
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _introDialog
+    value: Hello
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _informationDialog
+    value: 'I need '
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _acceptDialog
+    value: Thank you. I look forward
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _questCompleteDialog
+    value: Here you go. as promised...
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _questIcon
+    value: 
+    objectReference: {fileID: 0}
+  m_ExcludedProperties: []

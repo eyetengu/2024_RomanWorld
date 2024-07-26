@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 452c30ef0192b18419a4777ebde9cc1f, type: 3}
+  m_Name: Hammer
+  m_EditorClassIdentifier: 
+  itemName: Hammer
+  itemID: 0
+  icon: {fileID: 0}
+  gold: 0
+  itemModel: {fileID: 2984606922115679320, guid: b8751b20e0fe241429e1339ded72e3fd,
+    type: 3}
+  attack: 0
+  strength: 0
+  defense: 0
+  prayer: 0

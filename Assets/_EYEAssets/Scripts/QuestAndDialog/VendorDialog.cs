@@ -4,20 +4,30 @@ using UnityEngine;
 
 public class VendorDialog : MonoBehaviour
 {
-    QuestPlayer_V1 _playerInventory;
-    [SerializeField] Quest_Manager _questManager;
+    Quest_Manager _questManager;
     [SerializeField] UI_Manager _UIManager;
+    QuestPlayer_V1 _playerInventory;
 
-    SkinnedMeshRenderer _vendorRenderer;
-    [SerializeField] Material _completedQuestColor;
+    Animator _animator;
 
     //QUEST DATA
+    [Header("Quest Data")]
     [SerializeField] private string _questName;
     [SerializeField] private string _rewardName;    
     [SerializeField] private List<string> _questObjectives;    
     [SerializeField] private GameObject _rewardObject;
-    string _message;
+    [SerializeField] private GameObject _questIcon;
 
+    //DIALOG DATA
+    [Header("Dialog Elements")]
+    [SerializeField] private string _introDialog;
+    [SerializeField] private string _informationDialog;
+    [SerializeField] private string _acceptDialog;
+    [SerializeField] private string _questCompleteDialog;
+
+    SkinnedMeshRenderer _vendorRenderer;
+
+    string _message;
     int itemsCollected;
 
     public bool _inZone;
@@ -26,25 +36,32 @@ public class VendorDialog : MonoBehaviour
     public bool _questComplete;
     public bool _finalDialogFinished;
 
-    //DIALOG DATA
-    [SerializeField] private string _introDialog;
-    [SerializeField] private string _informationDialog;
-    [SerializeField] private string _acceptDialog;
-    [SerializeField] private string _questCompleteDialog;
-    [SerializeField] private GameObject _questIcon;
+    float _rotationSpeed = 2.0f;
+    float _rotationStep;
+
+    [SerializeField] private Material[] _questIconColors;
+    private MeshRenderer _questIconRenderer;
 
 
+    //BUILT-IN FUNCTIONS
     private void Start()
     {
-        _vendorRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+        _questManager = FindObjectOfType<Quest_Manager>();        
         _UIManager = GameObject.FindObjectOfType<UI_Manager>().GetComponent<UI_Manager>();
+        _vendorRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+        _animator = GetComponentInChildren<Animator>();
+        _questIconRenderer = _questIcon.GetComponent<MeshRenderer>();
+        _questIconRenderer.material = _questIconColors[0];
     }
 
     void Update()
     {
+        _rotationStep = _rotationSpeed * Time.deltaTime;
+
         if (_inZone)
         {
-            if(_questComplete == false)
+            TurnToFacePlayer();
+            if (_questComplete == false)
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
@@ -52,8 +69,8 @@ public class VendorDialog : MonoBehaviour
                     {
                         if (_questExplained == false)
                         {
-                            string requestItems = ". ";
-                            foreach(var item in _questObjectives)
+                            string requestItems = " ";
+                            foreach (var item in _questObjectives)
                             {
                                 requestItems += item.ToString() + ", ";
                             }
@@ -68,6 +85,7 @@ public class VendorDialog : MonoBehaviour
                         {
                             _questExplained = true;
                             _questAccepted = true;
+                            _questIconRenderer.material = _questIconColors[1];
                             _questManager.AddActiveQuest(_questName);
                             _playerInventory._acceptedQuests.Add(_questName);
 
@@ -92,6 +110,8 @@ public class VendorDialog : MonoBehaviour
                                     {
                                         _questComplete = true;
 
+                                        _animator.SetBool("Item Received", true);
+
                                         _questManager.AddCompletedQuest(_questName);
 
                                         _playerInventory._acceptedQuests.Remove(_questName);
@@ -102,7 +122,6 @@ public class VendorDialog : MonoBehaviour
 
                                         _finalDialogFinished = true;
                                         _playerInventory._playerInventory.Add(_rewardName);
-                                        //_vendorRenderer.material = _completedQuestColor;
                                         _questIcon.SetActive(false);
                                         return;
                                     }
@@ -116,6 +135,16 @@ public class VendorDialog : MonoBehaviour
         }        
     }
 
+    //CORE FUNCTIONS
+    void TurnToFacePlayer()
+    {
+        Vector3 targetDirection = _playerInventory.gameObject.transform.position - transform.position;
+
+        Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, _rotationStep, 0.0f);
+        transform.rotation = Quaternion.LookRotation(newDirection);
+    }
+
+    //TRIGGER FUNCTIONS
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
@@ -137,6 +166,3 @@ public class VendorDialog : MonoBehaviour
             _inZone = false;
     }
 }
-
-
-

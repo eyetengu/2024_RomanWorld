@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 2408758237030756124}
   - component: {fileID: 4550017037171554117}
   - component: {fileID: 3076768050383999288}
-  - component: {fileID: 1411693519783961902}
-  - component: {fileID: 7457685373436819859}
   - component: {fileID: 275742639903223801}
+  - component: {fileID: 7457685373436819859}
   - component: {fileID: 5410755660100680202}
   m_Layer: 0
   m_Name: Water
@@ -30,11 +29,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 162178565099319458}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.278, y: 0.898, z: -3.6010058}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 4742207415950598282}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4550017037171554117
@@ -52,7 +52,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 162178565099319458}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -87,8 +87,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1411693519783961902
-BoxCollider:
+--- !u!135 &275742639903223801
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -106,7 +106,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &7457685373436819859
 AudioSource:
@@ -204,27 +204,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!135 &275742639903223801
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 162178565099319458}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5410755660100680202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,4 +217,67 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _objectName: Water
-  _audioClip: {fileID: 8300000, guid: c17f38f8e7b5f4a1495fda840fbe7ccc, type: 3}
+  _audioClip: {fileID: 8300000, guid: ad03aba1a1583422b87a3966c8f741d3, type: 3}
+--- !u!1001 &4742207415950476462
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2408758237030756124}
+    m_Modifications:
+    - target: {fileID: 181616, guid: bddadfa1910975c49913f0e7de5f535e, type: 3}
+      propertyPath: m_Name
+      value: SM_Item_Waterskin_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 451620, guid: bddadfa1910975c49913f0e7de5f535e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.497
+      objectReference: {fileID: 0}
+    - target: {fileID: 451620, guid: bddadfa1910975c49913f0e7de5f535e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 451620, guid: bddadfa1910975c49913f0e7de5f535e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.552
+      objectReference: {fileID: 0}
+    - target: {fileID: 451620, guid: bddadfa1910975c49913f0e7de5f535e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 451620, guid: bddadfa1910975c49913f0e7de5f535e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 451620, guid: bddadfa1910975c49913f0e7de5f535e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 451620, guid: bddadfa1910975c49913f0e7de5f535e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 451620, guid: bddadfa1910975c49913f0e7de5f535e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 451620, guid: bddadfa1910975c49913f0e7de5f535e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 451620, guid: bddadfa1910975c49913f0e7de5f535e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bddadfa1910975c49913f0e7de5f535e, type: 3}
+--- !u!4 &4742207415950598282 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 451620, guid: bddadfa1910975c49913f0e7de5f535e,
+    type: 3}
+  m_PrefabInstance: {fileID: 4742207415950476462}
+  m_PrefabAsset: {fileID: 0}

@@ -5,7 +5,7 @@ using UnityEngine;
 public class LadderTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject _ladderParent;
-    Climbable _climbScript;
+    [SerializeField] Climbable _climbScript;
     
     [SerializeField] private string _ladderPoints;
 
@@ -13,12 +13,6 @@ public class LadderTrigger : MonoBehaviour
     void Start()
     {
         _climbScript = _ladderParent.GetComponent<Climbable>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void OnTriggerEnter(Collider other)

@@ -4,38 +4,66 @@ using UnityEngine;
 
 public class Openable : Interactables
 {
-    enum OpenableType { SlideUp, SlideSide, Revolving, DoorSingle, DoorDouble, CrateLid }
+    private UI_Manager _uiManager;
+
+    enum OpenableType { Slide, Revolving, Door, CrateLid }
+    
+    [Header("Door Types")]
     [SerializeField] OpenableType _openableType;
 
-    [SerializeField] private bool _isLocked, _isOpened;
+    [Header("Door Conditions")]
+    [SerializeField] private bool _isLocked;
+    [SerializeField] private bool _isOpened;
+    [SerializeField] private bool _isDoubleDoor;
+    [SerializeField] private bool _opensVertically;
+
+    [Header("Door Components")]
     [SerializeField] private Transform _doorPivot;
     [SerializeField] private Transform _doorPivot2;
 
     string _uiMessage;
-    [SerializeField] private UI_Manager _uiManager;
-    [SerializeField] bool _isDoubleSlide;
 
+
+    //BUILT-IN FUNCTIONS
+    private void Start()
+    {
+        _uiManager = FindObjectOfType<UI_Manager>();
+    }
 
     //CORE FUNCTIONS
     void FiniteStateMachine()
     {
         switch (_openableType)
         {
-            case OpenableType.SlideUp:
-                break;
-            case OpenableType.SlideSide:
-                if (_isDoubleSlide)
+            case OpenableType.Slide:
+                if (_isDoubleDoor)
                 {
-                    if (_isOpened)
+                    if (_opensVertically)
                     {
-                        _doorPivot.position = _doorPivot.position + new Vector3(0.5f, 0, 0);
-                        _doorPivot2.position = _doorPivot2.position + new Vector3(-0.5f, 0, 0);
+                        if (_isOpened)
+                        {
+                            _doorPivot.position = _doorPivot.position + new Vector3(0, 01.0f, 0);
+                            _doorPivot2.position = _doorPivot2.position + new Vector3(0, -1.0f, 0);
+                        }
+                        if (_isOpened == false)
+                        {
+                            _doorPivot.position = _doorPivot.position + new Vector3(0, -1.0f, 0);
+                            _doorPivot2.position = _doorPivot2.position + new Vector3(0, 1.0f, 0);
+                        }
                     }
-                    if (_isOpened == false)
+                    else if (_opensVertically == false)
                     {
-                        _doorPivot.position = _doorPivot.position + new Vector3(-0.5f, 0, 0);
-                        _doorPivot2.position = _doorPivot2.position + new Vector3(0.5f, 0, 0);
-                    }
+                        if (_isOpened)
+                        {
+                            _doorPivot.position = _doorPivot.position + new Vector3(0.5f, 0, 0);
+                            _doorPivot2.position = _doorPivot2.position + new Vector3(-0.5f, 0, 0);
+                        }
+                        else if (_isOpened == false)
+                        {
+                            _doorPivot.position = _doorPivot.position + new Vector3(-0.5f, 0, 0);
+                            _doorPivot2.position = _doorPivot2.position + new Vector3(0.5f, 0, 0);
+                        }
+                    }                    
                 }
                 else 
                 { 
@@ -46,22 +74,26 @@ public class Openable : Interactables
                 }
 
                 break;
-            case OpenableType.DoorSingle:
-                if (_isOpened)                
-                    _doorPivot.Rotate(0, 90, 0);                                    
-                else if (_isOpened == false)                
-                    _doorPivot.Rotate(0, -90, 0);                
-                break;
-            case OpenableType.DoorDouble:
-                if (_isOpened)
+            case OpenableType.Door:
+                if (_isDoubleDoor)
                 {
-                    _doorPivot.Rotate(0, 90, 0);
-                    _doorPivot2.Rotate(0, -90, 0);
+                    if (_isOpened)
+                    {
+                        _doorPivot.Rotate(0, 90, 0);
+                        _doorPivot2.Rotate(0, -90, 0);
+                    }
+                    if (_isOpened == false)
+                    { 
+                        _doorPivot.Rotate(0, -90, 0);
+                        _doorPivot2.Rotate(0, 90, 0);
+                    }
                 }
-                if (_isOpened == false)
-                { 
-                    _doorPivot.Rotate(0, -90, 0);
-                    _doorPivot2.Rotate(0, 90, 0);
+                else
+                {
+                    if (_isOpened)                
+                        _doorPivot.Rotate(0, 90, 0);                                    
+                    else if (_isOpened == false)                
+                        _doorPivot.Rotate(0, -90, 0);                
                 }
                 break;
             case OpenableType.Revolving:

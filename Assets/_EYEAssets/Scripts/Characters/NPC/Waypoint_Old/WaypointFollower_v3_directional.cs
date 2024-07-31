@@ -10,6 +10,21 @@ public class WaypointFollower_v3_directional : MonoBehaviour
     Transform targetWaypoint;
     [SerializeField] float _speed = 2.5f;
     float _step;
+    bool _isPaused;
+
+
+    //BUILT-IN FUNCTIONS
+    private void OnEnable()
+    {
+        Game_Manager.pauseGame += PauseNPCs;
+        Game_Manager.unPauseGame += UnPauseNPCs;
+    }
+
+    private void OnDisable()
+    {
+        Game_Manager.pauseGame -= PauseNPCs;
+        Game_Manager.unPauseGame -= UnPauseNPCs;
+    }
 
     void Start()
     {
@@ -19,10 +34,14 @@ public class WaypointFollower_v3_directional : MonoBehaviour
 
     void Update()
     {
-        MoveToWaypoint();
-        TurnTowardsWaypoint();
+        if (_isPaused == false)
+        {
+            MoveToWaypoint();
+            TurnTowardsWaypoint();
+        }
     }
 
+    //CORE FUNCTIONS
     void ChooseNextWaypoint()
     {
         targetWaypoint = waypoints[Random.Range(0, waypoints.Count)];
@@ -43,6 +62,7 @@ public class WaypointFollower_v3_directional : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(newDirection);
     }
 
+    //TRIGGERED FUNCTIONS
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Waypoint" && other.GetComponent<WaypointBehavior>())
@@ -51,5 +71,15 @@ public class WaypointFollower_v3_directional : MonoBehaviour
             waypoints = destinationList.ProvideDestinations();
             ChooseNextWaypoint();
         }
+    }
+
+    private void PauseNPCs()
+    {
+        _isPaused = true;
+    }
+
+    private void UnPauseNPCs()
+    {
+        _isPaused = false;
     }
 }

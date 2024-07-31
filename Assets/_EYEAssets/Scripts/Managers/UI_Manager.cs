@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_Manager : MonoBehaviour
 {
@@ -14,11 +16,16 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] private GameObject _overlayPanel;
     [SerializeField] private TMP_Text _gameCondition;
     [SerializeField] private TMP_Text _scoreText;
+    [SerializeField] private TMP_Text _coinText;
+
+    [SerializeField] private RawImage _equippedObjectImage;
+
 
     //Built-In Functions
     private void OnEnable()
     {
         Game_Manager.win += DisplayPlayerWin;
+        Game_Manager.walkAround += RemovePlayerWinScreen;
     }
 
     private void OnDisable()
@@ -44,19 +51,6 @@ public class UI_Manager : MonoBehaviour
     {
         _text.text = message;
     }
-    public void UpdateExperience(int value)
-    {
-
-    }
-
-    public void UpdateGold(int value) { }
-
-    public void UpdateHealth(int value) { }
-
-    public void UpdateScore(int value) 
-    { 
-        _scoreText.text = "Score: " + value;
-    }
 
     public void DisplayPlayerMessage(string message)
     {
@@ -75,11 +69,44 @@ public class UI_Manager : MonoBehaviour
         _introPanel.SetActive(false);
     }
 
+
+    //Player Values
+    public void UpdateExperience(int value)
+    {
+
+    }
+
+    public void UpdateGold(int value) 
+    { 
+        _coinText.text = value.ToString();
+    }
+
+    public void UpdateHealth(int value) { }
+
+    public void UpdateScore(int value) 
+    { 
+        _scoreText.text = "Score: " + value;
+    }
+
+
+    //UI Visuals
+    public void ShowEquippedItem(Texture equippedItem)
+    {
+        if(equippedItem != null)
+            _equippedObjectImage.GetComponent<RawImage>().texture = equippedItem;
+    }
+
     //Game Conditions
     public void DisplayPlayerWin()
     {
         _overlayPanel.SetActive(true);
         _gameCondition.text = "YOU WIN!";
+    }
+
+    public void RemovePlayerWinScreen()
+    {
+        _gameCondition.text = "";
+        _overlayPanel.SetActive(false);
     }
 
     void ClearGameConditionText()

@@ -1,27 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class Game_Manager : MonoBehaviour
 {
-    [SerializeField] int _speedIndex;
+    //----------DELEGATES & EVENTS----------
+    public delegate void GamePause();
+    public static event GamePause pauseGame;
 
-    private bool _isCursorLocked;
-    [SerializeField] private bool _isPaused;
+    public delegate void GameUnPaused();
+    public static event GameUnPaused unPauseGame;
 
-    float[] _speedValues = { 0.0f, 0.5f, 1.0f, 2.0f };
-    [SerializeField] float timer;
-    [SerializeField] float _timeScale;
+    //public delegate void GameWon();
+    //public static event GameWon gameWon;
+
+    public delegate void GameLost();
+    public static event GameLost gameLost;
 
     public delegate void WinCondition();
     public static event WinCondition win;
+
+    public delegate void WalkAround();
+    public static event WalkAround walkAround;
+
+
+    //---------------FIELDS---------------
+    [SerializeField] int _speedIndex;
+
+    private bool _isCursorLocked;
+
+    [Header("Game Conditions")]
+    [SerializeField] private bool _isPaused;
+    [SerializeField] private bool _gameOver;
+
+    [Header("Time Scale")]
+    [SerializeField] float timer;
+    [SerializeField] float _timeScale;
+    float[] _speedValues = { 0.0f, 0.5f, 1.0f, 2.0f };
 
 
     //BUILT-IN FUNCTIONS
     void Start()
     {
-        LockCursorInvisible();
-        _timeScale = 2;
+        //LockCursorInvisible();
+        _timeScale = 1.0f;
         GameSpeed();
     }
 
@@ -35,7 +59,27 @@ public class Game_Manager : MonoBehaviour
 
     //USER INPUTS
     void UserInput()
-    {        
+    { 
+        //Restart Game
+        if(_gameOver && Input.GetKeyDown(KeyCode.R))
+        {
+            _gameOver = false;
+            //_isPaused = false;
+            //PauseGame();
+            _timeScale = 1.0f;
+            GameSpeed();
+            SceneManager.LoadScene(0);
+        }
+
+        //Unpause And Keep Game Over
+        if(_gameOver && Input.GetKeyDown(KeyCode.T))
+        {
+            walkAround();
+
+            _timeScale = 1.0f;            
+            GameSpeed();
+        }
+
         //SPEED INDEX MANIPULATOR
         if (Input.GetKeyDown(KeyCode.P))
             PauseGame();
@@ -45,17 +89,29 @@ public class Game_Manager : MonoBehaviour
            UnlockCursorVisible();   
     }
 
+    void GameTimer()
+    {
+        timer += Time.deltaTime;
+        Debug.Log("Speed Index: " + _speedIndex);
+    }
+
     //GAME CONDITIONS
     public void YouWin()
     {
+        win();        
+
+        _gameOver = true;
+
         _timeScale = 0;
-        GameSpeed();
-        win();
         Debug.Log("YOU WIN!");
+        GameSpeed();
     }
 
     public void YouLose()
     {
+        pauseGame();
+
+        _gameOver = true;
         _timeScale = 0;
         GameSpeed();
         Debug.Log("YOU LOSE!");
@@ -64,29 +120,27 @@ public class Game_Manager : MonoBehaviour
     public void PauseGame()
     {
         _isPaused = !_isPaused;
+     
         if (_isPaused)
         {
+           //pauseGame();
+
             _timeScale = 0;
             GameSpeed();
         }
         else
         {
-            _timeScale = 2;
+            //unPauseGame();
+
+            _timeScale = 1;
             GameSpeed();
         }        
     }
     
     //GAME FUNCTIONS
-    void GameTimer()
-    {
-        timer += Time.deltaTime;
-        //Debug.Log("Timer: " + timer);
-        Debug.Log("Speed Index: " + _speedIndex);
-    }
-
     void GameSpeed()
     {
-        //_timeScale = _speedValues[_speedIndex];
+        Debug.Log("GameSpeed Adjusting");
         Time.timeScale = _timeScale;
     }
 

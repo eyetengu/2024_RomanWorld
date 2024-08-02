@@ -6,7 +6,7 @@ public class AudioChannel_Manager : MonoBehaviour
 {
     [SerializeField] private UI_MusicManager _musicUI;
     private AudioSource _audioSource;
-    [SerializeField] private AudioClip[] _musicClips;
+    [SerializeField] private AudioClip[] _audioClips;
     private AudioClip _currentTrack;
 
     [SerializeField] private bool _music, _ambient, _gameAudio;
@@ -23,7 +23,7 @@ public class AudioChannel_Manager : MonoBehaviour
 
         _audioSource = GetComponent<AudioSource>();
 
-        _currentTrack = _musicClips[_trackID];
+        _currentTrack = _audioClips[_trackID];
         _trackName = _currentTrack.name;
 
         PlayCurrentTrack();
@@ -34,8 +34,11 @@ public class AudioChannel_Manager : MonoBehaviour
     void Update()
     {
         //if the audio source is neither playing NOR paused
-        if (_audioSource.isPlaying == false && _isPaused == false)
-            ChooseNextTrack();
+        if (_gameAudio == false)
+        {
+            if (_audioSource.isPlaying == false && _isPaused == false)
+                ChooseNextTrack();
+        }
 
         //UserInput
         if (Input.GetKeyDown(KeyCode.Space))
@@ -45,15 +48,16 @@ public class AudioChannel_Manager : MonoBehaviour
         CurrentTrackTime();
     }
 
+
     //CORE FUNCTIONS
     private void ChooseNextTrack()
     {
         _trackID++;
 
-        if (_trackID > _musicClips.Length - 1)
+        if (_trackID > _audioClips.Length - 1)
             _trackID = 0;
 
-        _currentTrack = _musicClips[_trackID];
+        _currentTrack = _audioClips[_trackID];
         _audioSource.clip = _currentTrack;
 
         if (_music)
@@ -69,7 +73,7 @@ public class AudioChannel_Manager : MonoBehaviour
     }
     private void PlayCurrentTrack()
     {
-        _audioSource.clip = _musicClips[_trackID];
+        _audioSource.clip = _audioClips[_trackID];
         _audioSource.Play();
     }
     private void DisplayTrackName()

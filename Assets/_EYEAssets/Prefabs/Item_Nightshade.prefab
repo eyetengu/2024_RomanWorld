@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 923302807051186103}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.71, y: -0.01, z: 14.64}
+  m_LocalPosition: {x: 0, y: -0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiManager: {fileID: 0}
+  _inventoryManager: {fileID: 0}
   _objectName: Nightshade
   _audioClip: {fileID: 8300000, guid: 5ab91a2740f8b4476a8946f20def321f, type: 3}
   _image: {fileID: 2800000, guid: f0a169bdd2924421d834e4cd358ecf54, type: 3}
@@ -331,6 +332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiManager: {fileID: 0}
+  _inventoryManager: {fileID: 0}
   _objectName: Nightshade
   _audioClip: {fileID: 8300000, guid: 5ab91a2740f8b4476a8946f20def321f, type: 3}
   _image: {fileID: 2800000, guid: f0a169bdd2924421d834e4cd358ecf54, type: 3}

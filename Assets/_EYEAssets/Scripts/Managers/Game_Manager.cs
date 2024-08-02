@@ -7,6 +7,13 @@ using UnityEngine.SceneManagement;
 public class Game_Manager : MonoBehaviour
 {
     //----------DELEGATES & EVENTS----------
+    public delegate void PausePlayerMovement();
+    public static event PausePlayerMovement pausePlayerMover;
+
+
+    public delegate void UnpausePlayerMovement();
+    public static event UnpausePlayerMovement _unpausePlayerMover;
+
     public delegate void GamePause();
     public static event GamePause pauseGame;
 
@@ -44,7 +51,7 @@ public class Game_Manager : MonoBehaviour
     //BUILT-IN FUNCTIONS
     void Start()
     {
-        //LockCursorInvisible();
+        LockCursorInvisible();
         _timeScale = 1.0f;
         GameSpeed();
     }
@@ -57,6 +64,17 @@ public class Game_Manager : MonoBehaviour
         Debug.Log("Time Scale: " + _timeScale);
     }
 
+    public void PausePlayer()
+    {
+        pausePlayerMover();
+    }
+
+    public void UnpausePlayer()
+    {
+        _unpausePlayerMover();
+    }
+
+
     //USER INPUTS
     void UserInput()
     { 
@@ -68,7 +86,7 @@ public class Game_Manager : MonoBehaviour
             //PauseGame();
             _timeScale = 1.0f;
             GameSpeed();
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
         }
 
         //Unpause And Keep Game Over
@@ -86,7 +104,7 @@ public class Game_Manager : MonoBehaviour
 
         //CURSOR VISIBILITY
         if (Input.GetKey(KeyCode.Escape))
-           UnlockCursorVisible();   
+            Application.Quit();                
     }
 
     void GameTimer()
@@ -94,6 +112,7 @@ public class Game_Manager : MonoBehaviour
         timer += Time.deltaTime;
         Debug.Log("Speed Index: " + _speedIndex);
     }
+
 
     //GAME CONDITIONS
     public void YouWin()
@@ -103,7 +122,7 @@ public class Game_Manager : MonoBehaviour
         _gameOver = true;
 
         _timeScale = 0;
-        Debug.Log("YOU WIN!");
+        Debug.Log("YOU WIN!\nPress 'T' To Continue Exploring\n Press 'R' To Restart");
         GameSpeed();
     }
 
@@ -137,6 +156,7 @@ public class Game_Manager : MonoBehaviour
         }        
     }
     
+
     //GAME FUNCTIONS
     void GameSpeed()
     {
@@ -144,14 +164,21 @@ public class Game_Manager : MonoBehaviour
         Time.timeScale = _timeScale;
     }
 
+
     //CURSOR FUNCTIONS
-    void LockCursorInvisible()
+    public void LockCursorInvisible()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
+    
+    public void ShowAndConfineCursor()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
+    }
 
-    void UnlockCursorVisible()
+    public void UnlockCursorVisible()
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;

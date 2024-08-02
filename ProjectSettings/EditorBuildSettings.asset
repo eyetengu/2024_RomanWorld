@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_EYEAssets/Scenes/Animator_Exploration.unity
-    guid: 36f5f299d06f6b042a067a0de2fbffb3
+    path: Assets/_EYEAssets/Scenes/00_PreGame_Workaround.unity
+    guid: 45224baf7474ee3449ceb87a33377308
+  - enabled: 1
+    path: Assets/_EYEAssets/Scenes/01_Core_SetDecorated.unity
+    guid: 22da821b7f5054942b96aa1ae0b33003
   m_configObjects: {}

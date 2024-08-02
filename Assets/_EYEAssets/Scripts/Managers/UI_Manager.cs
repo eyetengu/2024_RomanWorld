@@ -14,6 +14,8 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] private TMP_Text _playerMessageText;
 
     [SerializeField] private GameObject _overlayPanel;
+    [SerializeField] private GameObject _playerMessageBG;
+
     [SerializeField] private TMP_Text _gameCondition;
     [SerializeField] private TMP_Text _scoreText;
     [SerializeField] private TMP_Text _coinText;
@@ -38,6 +40,7 @@ public class UI_Manager : MonoBehaviour
         ClearPlayerCondition();
     }
 
+
     //Message Displays
     public void UpdateUIMessage(string message, int state, int dayOfYear)
     {
@@ -55,8 +58,10 @@ public class UI_Manager : MonoBehaviour
     public void DisplayPlayerMessage(string message)
     {
         StopCoroutine(ClearPlayerMessage());
-        _playerMessageText.text = message;
         StartCoroutine(ClearPlayerMessage());
+
+        _playerMessageBG.SetActive(true);
+        _playerMessageText.text = message;
     }
 
     public void UpdateEndGameMessage(string message)
@@ -100,7 +105,7 @@ public class UI_Manager : MonoBehaviour
     public void DisplayPlayerWin()
     {
         _overlayPanel.SetActive(true);
-        _gameCondition.text = "YOU WIN!";
+        _gameCondition.text = "YOU WIN!\nPress 'T' To Continue Exploring\n Press 'R' To Restart";
     }
 
     public void RemovePlayerWinScreen()
@@ -139,6 +144,8 @@ public class UI_Manager : MonoBehaviour
     IEnumerator ClearPlayerMessage()
     {
         yield return new WaitForSeconds(3);
+        _playerMessageBG.SetActive(false);
+
         _playerMessageText.text = "";
     }
 }

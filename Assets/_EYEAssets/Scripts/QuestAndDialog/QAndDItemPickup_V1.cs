@@ -4,42 +4,46 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class QAndDItemPickup_V1 : MonoBehaviour
-{
+{    
     [SerializeField] UI_Manager _uiManager;
+    UI_MusicManager _musicUIManager;
     [SerializeField] Inventory_Manager _inventoryManager;
 
     AudioSource _audioSource;
 
-    [SerializeField] string _objectName;
+    public string _objectName;
     [SerializeField] AudioClip _audioClip;
-    [SerializeField] private Texture _image;
+    public Texture _image;
 
 
+    //BUILT-IN FUNCTIONS
     private void Start()
     {
+        _musicUIManager = FindObjectOfType<UI_MusicManager>();
         _uiManager = GameObject.FindObjectOfType<UI_Manager>();
         _audioSource = GetComponent<AudioSource>();
     }
 
+    //TRIGGER FUNCTIONS
     void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
         {
-            _audioSource.PlayOneShot(_audioClip);   
+            _musicUIManager.PlayGeneralAudioClip(_audioClip);
 
             var collider = gameObject.GetComponent<SphereCollider>();
             collider.enabled = false;
 
             var playerInventory = other.GetComponent<QuestPlayer_V1>();
-            playerInventory._playerInventory.Add(_objectName);
+            //playerInventory._inventoryObject.Add(this.gameObject);
 
             if (_image != null)
             {
                 _uiManager.ShowEquippedItem(_image);
-                _inventoryManager.AddItemToInventory(_image);
+                playerInventory.AddItemToPlayerInventory(this.gameObject);
             }
 
-            Destroy(gameObject, 1);
+            this.gameObject.SetActive(false);
         }
     }
 }

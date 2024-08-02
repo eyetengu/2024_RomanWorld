@@ -55,7 +55,7 @@ public class WaypointFollower : MonoBehaviour
     //CORE FUNCTIONS
     void WaypointDistanceChecker()
     {
-        Debug.Log("Checking Distance");
+        //Debug.Log("Checking Distance");
 
         var distance = Vector3.Distance(transform.position, _newWaypoint.position);
 
@@ -73,8 +73,8 @@ public class WaypointFollower : MonoBehaviour
 
     void SelectNextWaypoint()
     {
+        //Debug.Log("Selecting new Waypoint");
         listOfPoints = new List<Transform>();
-        Debug.Log("Selecting new Waypoint");
         if (_availableWaypoints.Count > 1)
         {
             foreach(var point in _availableWaypoints)
@@ -108,7 +108,7 @@ public class WaypointFollower : MonoBehaviour
 
     public void AssignAvailableWaypoints(List<Transform> points)
     {
-        Debug.Log("Waypoints Assigned");
+        //Debug.Log("Waypoints Assigned");
         _availableWaypoints = points;
     }
 

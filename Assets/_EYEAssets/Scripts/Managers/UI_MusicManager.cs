@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class UI_MusicManager : MonoBehaviour
 {
+    [SerializeField] private Game_Manager _gameManager;
     [SerializeField] GameObject _mainUICanvas;
     [SerializeField] GameObject _mainCanvasPanels;
 
@@ -37,28 +38,38 @@ public class UI_MusicManager : MonoBehaviour
         _mainUICanvas.SetActive(false);
         _splashScreen.SetActive(true);
 
+        Game_Manager.win += PlayGameOverAudio;
+
         HideAllScreens();
         StartCoroutine(FadeSplashScreen());
+    }
+
+    private void OnDisable()
+    {
+        Game_Manager.win -= PlayGameOverAudio;
     }
 
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.M))
         {
+            _gameManager.ShowAndConfineCursor();
+                
             _mainCanvasPanels.SetActive(false);
 
             foreach (GameObject menu in _uiMenus)
                 menu.SetActive(false);
             _uiMenus[0].SetActive(true);
+            _gameManager.PausePlayer();
         }
 
         if (Input.GetKeyDown(KeyCode.O))
         {
-            _mainCanvasPanels.SetActive(false);
+            //_mainCanvasPanels.SetActive(false);
 
-            foreach (GameObject menu in _uiMenus)
-                menu.SetActive(false);
-            _uiMenus[1].SetActive(true);
+            //foreach (GameObject menu in _uiMenus)
+                //menu.SetActive(false);
+            //_uiMenus[1].SetActive(true);
         }
     }
 
@@ -66,7 +77,7 @@ public class UI_MusicManager : MonoBehaviour
     public void AdjustBrightness()
     {
         var tempColor = _blackOverlay.color;
-        tempColor.a = _sliderBrightness.value;
+        tempColor.a = Mathf.Clamp(_sliderBrightness.value, 0, 0.97f);
         _blackOverlay.color = tempColor;
     }
 
@@ -151,13 +162,17 @@ public class UI_MusicManager : MonoBehaviour
         AdjustMasterVolume();
     }
 
-    void SetWalkAroundSpecifications()
-    {
-        var tempColor = _blackOverlay.color;
-        tempColor.a = 0;
-        _blackOverlay.color = tempColor;
-    }
 
+    //IN-GAME AUDIO FUNCTIONS
+    public void PlayGeneralAudioClip(AudioClip clip)
+    {
+        _asGeneral.PlayOneShot(clip);
+    }
+    
+    public void PlayGameOverAudio()
+    {
+
+    }
 
     //COROUTINES
     IEnumerator FadeSplashScreen()
@@ -165,5 +180,6 @@ public class UI_MusicManager : MonoBehaviour
         yield return new WaitForSeconds(3);
         _splashScreen.SetActive(false);
         _mainUICanvas.SetActive(true);
+        _gameManager.UnpausePlayer();
     }
 }

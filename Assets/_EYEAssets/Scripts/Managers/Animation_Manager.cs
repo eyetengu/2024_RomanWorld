@@ -20,8 +20,7 @@ public class Animation_Manager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-            Application.Quit();
+        
     }
 
     public void SetIdle()

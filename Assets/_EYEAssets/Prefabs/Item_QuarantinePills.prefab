@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 9153192717417616486}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13.03, y: 1, z: 14.64}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiManager: {fileID: 0}
+  _inventoryManager: {fileID: 0}
   _objectName: Quarantine Pills
   _audioClip: {fileID: 8300000, guid: 5ab91a2740f8b4476a8946f20def321f, type: 3}
   _image: {fileID: 2800000, guid: 5c26db6e49c7d426daba68f16fc2a1f3, type: 3}

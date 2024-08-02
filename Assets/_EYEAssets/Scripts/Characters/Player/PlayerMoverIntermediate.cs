@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMoverIntermediate : MonoBehaviour
 {
+    Game_Manager _gameManager;
+
     [Header("Speed")]
     [SerializeField] float _speed = 3.0f;
     [SerializeField] float _rotationSpeed = 100;
@@ -12,18 +14,44 @@ public class PlayerMoverIntermediate : MonoBehaviour
     float _rotationStep;
 
     float _speedMultiplier = 1.0f;
+    bool _playerMovementPaused;
 
     [SerializeField] private Animation_Manager _animManager;
 
+    //BUILT-IN FUNCTIONS
+    private void OnEnable()
+    {
+        Game_Manager.pausePlayerMover += PausePlayerMovement;     
+        Game_Manager._unpausePlayerMover += UnpausePlayerMovement;
+    }
+
+    private void OnDisable()
+    {
+        Game_Manager.pausePlayerMover -= PausePlayerMovement;
+        Game_Manager._unpausePlayerMover -= UnpausePlayerMovement;
+    }
 
     void Update()
     {
         _step = _speed * _speedMultiplier * Time.deltaTime;
         _rotationStep = _rotationSpeed * _speedMultiplier * Time.deltaTime;
 
-        PlayerMover();
+        if(_playerMovementPaused)
+            PlayerMover();
     }
 
+    //INITIAL GAME STATE
+    void PausePlayerMovement()
+    {
+        _playerMovementPaused = false;
+    }
+    
+    void UnpausePlayerMovement()
+    {
+        _playerMovementPaused = true;
+    }
+
+    //CORE FUNCTIONS
    void PlayerMover()
     {
         if (Input.GetKey(KeyCode.LeftShift))

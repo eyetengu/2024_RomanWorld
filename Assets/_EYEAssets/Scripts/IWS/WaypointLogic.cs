@@ -16,7 +16,7 @@ public class WaypointLogic : MonoBehaviour
     {
         if(other.tag == "Follower")
         {
-            Debug.Log("Follower Receiving");
+            //Debug.Log("Follower Receiving");
             _npcFollower = other.GetComponent<WaypointFollower>();
             if(_npcFollower != null)
             {

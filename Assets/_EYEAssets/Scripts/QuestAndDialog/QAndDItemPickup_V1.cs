@@ -5,15 +5,14 @@ using UnityEngine;
 
 public class QAndDItemPickup_V1 : MonoBehaviour
 {    
-    [SerializeField] UI_Manager _uiManager;
+    UI_Manager _uiManager;
     UI_MusicManager _musicUIManager;
-    [SerializeField] Inventory_Manager _inventoryManager;
-
-    AudioSource _audioSource;
 
     public string _objectName;
     [SerializeField] AudioClip _audioClip;
     public Texture _image;
+
+    [SerializeField] private bool _isEquipable;
 
 
     //BUILT-IN FUNCTIONS
@@ -21,8 +20,17 @@ public class QAndDItemPickup_V1 : MonoBehaviour
     {
         _musicUIManager = FindObjectOfType<UI_MusicManager>();
         _uiManager = GameObject.FindObjectOfType<UI_Manager>();
-        _audioSource = GetComponent<AudioSource>();
+        //_audioSource = GetComponent<AudioSource>();
     }
+
+    public bool CheckIfItemIsEquipable()
+    {
+        if (_isEquipable)        
+            return true;        
+        else
+            return false;
+    }
+
 
     //TRIGGER FUNCTIONS
     void OnTriggerEnter(Collider other)
@@ -30,7 +38,7 @@ public class QAndDItemPickup_V1 : MonoBehaviour
         if(other.tag == "Player")
         {
             _musicUIManager.PlayGeneralAudioClip(_audioClip);
-
+            Debug.Log("Playing Audio Clip");
             var collider = gameObject.GetComponent<SphereCollider>();
             collider.enabled = false;
 
@@ -39,7 +47,6 @@ public class QAndDItemPickup_V1 : MonoBehaviour
 
             if (_image != null)
             {
-                _uiManager.ShowEquippedItem(_image);
                 playerInventory.AddItemToPlayerInventory(this.gameObject);
             }
 

@@ -7,19 +7,21 @@ using UnityEngine.UI;
 
 public class UI_Manager : MonoBehaviour
 {
+    [Header("GAME OBJECTS")]
     [SerializeField] private GameObject _introPanel;
+    [SerializeField] private GameObject _overlayPanel;
+    [SerializeField] private GameObject _playerMessageBG;
 
+    [Header("TEXT FIELDS")]
     [SerializeField] private TMP_Text _text;
     [SerializeField] private TMP_Text _extraText;
     [SerializeField] private TMP_Text _playerMessageText;
-
-    [SerializeField] private GameObject _overlayPanel;
-    [SerializeField] private GameObject _playerMessageBG;
 
     [SerializeField] private TMP_Text _gameCondition;
     [SerializeField] private TMP_Text _scoreText;
     [SerializeField] private TMP_Text _coinText;
 
+    [Header("IMAGES")]
     [SerializeField] private RawImage _equippedObjectImage;
 
 
@@ -105,7 +107,7 @@ public class UI_Manager : MonoBehaviour
     public void DisplayPlayerWin()
     {
         _overlayPanel.SetActive(true);
-        _gameCondition.text = "YOU WIN!\nPress 'T' To Continue Exploring\n Press 'R' To Restart";
+        _gameCondition.text = "YOU WIN!"; //\nPress 'T' To Continue Exploring\n Press 'R' To Restart";
     }
 
     public void RemovePlayerWinScreen()

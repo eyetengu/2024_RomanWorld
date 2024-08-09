@@ -8,28 +8,46 @@ using UnityEngine.UI;
 
 public class UI_MusicManager : MonoBehaviour
 {
+    [Header("COMPONENTS")]
     [SerializeField] private Game_Manager _gameManager;
+    [SerializeField] private AudioMixer _mixer;
+
+    [Header("UI GENERAL")]
     [SerializeField] GameObject _mainUICanvas;
     [SerializeField] GameObject _mainCanvasPanels;
-
+    [SerializeField] private GameObject _splashScreen;
+    [SerializeField] private GameObject _trackNameBG;
     [SerializeField] private GameObject[] _uiMenus;
 
-    [SerializeField] private TMP_Text _musicTrackNameDisplay, _ambientTrackNameDisplay, _gameAusioTrackNameDisplay;
-    private  string _musicTrackName, _ambientTrackName, _gameAudioTrackName;
-    [SerializeField] private GameObject _trackNameBG;
-
-    [SerializeField] private TMP_Text _musicTimeCurrent, _ambientTimeCurrent, _gameAudioTimeCurrent;
-
-    [SerializeField] private Slider _sliderMaster, _sliderAmbient, _sliderMusic, _sliderGameAudio;
-    [SerializeField] private Toggle[] _toggles_audio;
-    [SerializeField] private AudioMixer _mixer;
-    [SerializeField] private Image _blackOverlay;
+    [Header("TEXT FIELDS")]
+    [SerializeField] private TMP_Text _musicTrackNameDisplay;
+    [SerializeField] private TMP_Text _ambientTrackNameDisplay;
+    [SerializeField] private TMP_Text _gameAudioTrackNameDisplay;
+    [SerializeField] private TMP_Text _musicTimeCurrent;
+    [SerializeField] private TMP_Text _ambientTimeCurrent;
+    [SerializeField] private TMP_Text _gameAudioTimeCurrent;
+    
+    [Header("SLIDERS")]
+    [SerializeField] private Slider _sliderMaster;
+    [SerializeField] private Slider _sliderAmbient;
+    [SerializeField] private Slider _sliderMusic;
+    [SerializeField] private Slider _sliderGameAudio;
     [SerializeField] private Slider _sliderBrightness;
 
-    [SerializeField] private GameObject _splashScreen;
+    [Header("TOGGLES")]
+    [SerializeField] private Toggle[] _toggles_audio;
+    [SerializeField] private Image _blackOverlay;
+
+    [Header("AUDIO SOURCES")]
+    [SerializeField] private AudioSource _asMusic;
+    [SerializeField] private AudioSource _asAmbience;
+    [SerializeField] private AudioSource _asGeneral;
+
+    private string _musicTrackName;
+    private string _ambientTrackName;
+    private string _gameAudioTrackName;
     private bool _isMuteAll;
 
-    [SerializeField] private AudioSource _asMusic, _asAmbience, _asGeneral;
 
 
     //BUILT-IN FUNCTIONS
@@ -112,7 +130,7 @@ public class UI_MusicManager : MonoBehaviour
                 _ambientTrackNameDisplay.text = trackName;
                 break;
             case 2:
-                _gameAusioTrackNameDisplay.text = trackName;
+                _gameAudioTrackNameDisplay.text = trackName;
                 break;
 
             default:

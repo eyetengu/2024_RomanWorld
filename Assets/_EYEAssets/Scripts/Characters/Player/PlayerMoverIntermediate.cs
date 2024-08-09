@@ -1,22 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMoverIntermediate : MonoBehaviour
 {
     Game_Manager _gameManager;
+    Animation_Manager _animManager;
 
     [Header("Speed")]
     [SerializeField] float _speed = 3.0f;
     [SerializeField] float _rotationSpeed = 100;
-
+    float _speedMultiplier = 1.0f;
     float _step;
     float _rotationStep;
 
-    float _speedMultiplier = 1.0f;
-    bool _playerMovementPaused;
+    [SerializeField] bool _playerMovementPaused;
 
-    [SerializeField] private Animation_Manager _animManager;
+    [SerializeField] private Slider _speedSlider;
+
 
     //BUILT-IN FUNCTIONS
     private void OnEnable()
@@ -31,6 +33,12 @@ public class PlayerMoverIntermediate : MonoBehaviour
         Game_Manager._unpausePlayerMover -= UnpausePlayerMovement;
     }
 
+    private void Start()
+    {
+        _animManager = GetComponent<Animation_Manager>();
+        AdjustPlayerSpeed();
+    }
+
     void Update()
     {
         _step = _speed * _speedMultiplier * Time.deltaTime;
@@ -38,6 +46,11 @@ public class PlayerMoverIntermediate : MonoBehaviour
 
         if(_playerMovementPaused)
             PlayerMover();
+    }
+
+    public void AdjustPlayerSpeed()
+    {
+        _speed = _speedSlider.value;
     }
 
     //INITIAL GAME STATE

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Animation_Manager : MonoBehaviour
 {
-    [SerializeField] private Animator _animator;
+    private Animator _animator;
 
 
     void OnEnable()

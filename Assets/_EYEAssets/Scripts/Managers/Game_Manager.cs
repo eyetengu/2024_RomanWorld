@@ -46,6 +46,7 @@ public class Game_Manager : MonoBehaviour
     [SerializeField] float timer;
     [SerializeField] float _timeScale;
     float[] _speedValues = { 0.0f, 0.5f, 1.0f, 2.0f };
+    [SerializeField] private int _nextSceneToLoad;
 
 
     //BUILT-IN FUNCTIONS
@@ -86,7 +87,7 @@ public class Game_Manager : MonoBehaviour
             //PauseGame();
             _timeScale = 1.0f;
             GameSpeed();
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(_nextSceneToLoad);
         }
 
         //Unpause And Keep Game Over
@@ -117,13 +118,15 @@ public class Game_Manager : MonoBehaviour
     //GAME CONDITIONS
     public void YouWin()
     {
+        StartCoroutine(PauseBeforeNextLevel());
         win();        
 
         _gameOver = true;
 
-        _timeScale = 0;
+        //_timeScale = 0;
         Debug.Log("YOU WIN!\nPress 'T' To Continue Exploring\n Press 'R' To Restart");
-        GameSpeed();
+        //GameSpeed();
+
     }
 
     public void YouLose()
@@ -183,4 +186,14 @@ public class Game_Manager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
+
+    IEnumerator PauseBeforeNextLevel()
+    {
+        yield return new WaitForSeconds(2);
+        _timeScale = 1.0f;
+        GameSpeed();
+        SceneManager.LoadScene(_nextSceneToLoad);
+    }
+
+
 }

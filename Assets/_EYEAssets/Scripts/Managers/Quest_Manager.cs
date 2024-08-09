@@ -7,8 +7,8 @@ public class Quest_Manager : MonoBehaviour
     [SerializeField] List<string> _activeQuests = new List<string>();
     [SerializeField] List<string> _completedQuests = new List<string>();
 
-    [SerializeField] Game_Manager _gameManager;
-    [SerializeField] UI_Manager _uiManager;
+    Game_Manager _gameManager;
+    UI_Manager _uiManager;
     [SerializeField] int _numberOfQuestsToWin;
     bool _gameWon;
 
@@ -17,6 +17,8 @@ public class Quest_Manager : MonoBehaviour
     private void OnEnable()
     {
         _gameManager = FindObjectOfType<Game_Manager>();
+        _uiManager = FindObjectOfType<UI_Manager>();
+
         //Game_Manager.pauseGame += PauseActivity;
         //Game_Manager.unPauseGame += UnPauseActivity;
     }

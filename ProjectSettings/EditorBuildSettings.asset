@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_EYEAssets/Scenes/01_Core_SetDecorated.unity
     guid: 22da821b7f5054942b96aa1ae0b33003
+  - enabled: 1
+    path: Assets/_EYEAssets/Scenes/02_HouseOnAHill.unity
+    guid: 700dccec9d679ce4fba6556e16d30898
   m_configObjects: {}

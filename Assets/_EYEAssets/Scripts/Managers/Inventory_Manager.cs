@@ -6,13 +6,16 @@ using UnityEngine.UI;
 public class Inventory_Manager : MonoBehaviour
 {
     Game_Manager _gameManager;
+    [Header("INVENTORY")]
     [SerializeField] private GameObject _inventoryPanel;
 
+    [Header("LISTS")]
     [SerializeField] private GameObject[] _objects;
     [SerializeField] private RawImage[] _itemSlots;
     [SerializeField] bool[] _itemPresent;
-    
-    [SerializeField] private Texture _image;
+
+    //[SerializeField] private Texture _image;
+    [Header("SPRITE")]
     [SerializeField] private Texture _sprite;
 
     bool _showInventory;
